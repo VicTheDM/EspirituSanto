@@ -11555,11 +11555,11 @@ html {
 
 .bg-gradient-primary-to-secondary {
   background: #1e30f3;
-  background: linear-gradient(135deg, #000000 0%, #FFD700 100%);
+  background: linear-gradient(135deg, #000000 0%, #195D7B 100%);
 }
 
 .text-gradient {
-  background: -webkit-linear-gradient(315deg, #000000 0%, #FFD700 100%);
+  background: -webkit-linear-gradient(315deg, #000000 0%, #195D7B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

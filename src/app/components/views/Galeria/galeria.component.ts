@@ -1,111 +1,56 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-
-
+import { Component, OnInit, ViewChild, model } from '@angular/core';
+import { Carousel } from 'primeng/carousel';
+import { ImagesService } from '../../../../services/images.service';
+import { GalleriaModule  } from 'primeng/galleria';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-galeria:not(g)',
   templateUrl: './galeria.component.html',
-  styleUrls: ['./galeria.component.css']
+  styleUrls: ['./galeria.component.css'],
+  imports: [Carousel,CommonModule, GalleriaModule],
+  providers: [ImagesService],
 })
 export class GaleriaComponent implements OnInit {
-  images = [
-    {
-      src : '../../../../assets/iglesia/I8.jpg',
-      tsrc: '../../../../assets/iglesia/I8.jpg',
-      alt: 'Description for Image 1',
-      title: 'Title 1'
-    },
-    {
-      src : '../../../../assets/iglesia/I1.jpg',
-      tsrc: '../../../../assets/iglesia/I1.jpg',
-      alt: 'Description for Image 2',
-      title: 'Title 2'
-    },
-    {
-      src : '../../../../assets/iglesia/I2.jpg',
-      tsrc: '../../../../assets/iglesia/I2.jpg',
-      alt: 'Description for Image 3',
-      title: 'Title 3'
-    },
-    {
-      src : '../../../../assets/iglesia/I3.jpg',
-      tsrc: '../../../../assets/iglesia/I3.jpg',
-      alt: 'Description for Image 4',
-      title: 'Title 4'
-    },
-    {
-      src : '../../../../assets/iglesia/I4.jpg',
-      tsrc: '../../../../assets/iglesia/I4.jpg',
-      alt: 'Description for Image 5',
-      title: 'Title 5'
-    },
-    {
-      src : '../../../../assets/iglesia/I5.jpg',
-      tsrc: '../../../../assets/iglesia/I5.jpg',
-      alt: 'Description for Image 6',
-      title: 'Title 6'
-    },
-    {
-      src : '../../../../assets/iglesia/I6.jpg',
-      tsrc: '../../../../assets/iglesia/I6.jpg',
-      alt: 'Description for Image 7',
-      title: 'Title 7'
-    },
-    {
-      src : '../../../../assets/iglesia/I7.jpg',
-      tsrc: '../../../../assets/iglesia/I7.jpg',
-      alt: 'Description for Image 8',
-      title: 'Title 8'
-    }
-  ];
   responsiveOptions: any[] | undefined;
-  displayCustom: boolean | undefined;
+  displayCustom: boolean  = false;
+  images = model([{
+    itemImageSrc: 'https://primeng.org/images/galleria/galleria1.jpg',
+    thumbnailImageSrc: 'https://primeng.org/images/galleria/galleria1s.jpg',
+    alt: 'Description for Image 1',
+    title: 'Title 1'
+  }])
+  // images = [{
+  //   itemImageSrc: 'https://primeng.org/images/galleria/galleria1.jpg',
+  //   thumbnailImageSrc: 'https://primeng.org/images/galleria/galleria1s.jpg',
+  //   alt: 'Description for Image 1',
+  //   title: 'Title 1'
+  // }]
+  
+  responsiveOptions2: any[] = [
+    {
+        breakpoint: '1024px',
+        numVisible: 5
+    },
+    {
+        breakpoint: '768px',
+        numVisible: 3
+    },
+    {
+        breakpoint: '560px',
+        numVisible: 1
+    }
+];
 
   activeIndex: number = 0;
   i: number = 0;
-  constructor() {
-    // this.galleryService.getImages().then((images) => (this.images = images));
-  }
-  async ngOnInit() {
-    this.i = 0;
-    console.log(this.images);
-    this.responsiveOptions = [
-      {
-          breakpoint: '1400px',
-          numVisible: 2,
-          numScroll: 1,
-      },
-      {
-          breakpoint: '1199px',
-          numVisible: 3,
-          numScroll: 1,
-      },
-      {
-          breakpoint: '767px',
-          numVisible: 2,
-          numScroll: 1,
-      },
-      {
-          breakpoint: '575px',
-          numVisible: 1,
-          numScroll: 1,
-      },
-  ];
-  }
-  getSlide() {
-    return this.images[this.i].src;
-  }
+  constructor(private imageService: ImagesService) {}
 
-  getPrev() {
-    this.i == 0 ? (this.i = this.images.length - 1) : this.i--;
-  }
+  ngOnInit() {
+    this.imageService.getImagesSmall().then((res) => this.images.set(res));
+}
 
-  getNext() {
-    this.i < this.images.length - 1 ? this.i++ : (this.i = 0);
-  }
-
-  
-  imageClick(index: number) {
+imageClick(index: number) {
     this.activeIndex = index;
     this.displayCustom = true;
-  }
+}
 }

@@ -4,9 +4,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
+import { Toolbar } from 'primeng/toolbar';
+import { Button } from 'primeng/button';
+import { Avatar } from 'primeng/avatar';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule,RouterLink],
+  imports: [RouterOutlet, CommonModule,RouterLink, Toolbar,Button, Avatar],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
